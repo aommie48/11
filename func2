@@ -1,0 +1,26 @@
+bool isWordGuessed(const vector<bool>& guessed) {
+    return all_of(guessed.begin(), guessed.end(), [](bool g) { return g; });
+}
+
+void loadWords(vector<string>& words, const string& filename) {
+    ifstream file(filename);
+    if (!file) {
+        cerr << "Error: Unable to open file " << filename << endl;
+        return;
+    }
+    string word;
+    while (file >> word) {
+        words.push_back(word);
+    }
+    file.close();
+}
+
+HighScore loadHighScore(const string& filename) {
+    ifstream file(filename);
+    HighScore hs;
+    if (file) {
+        file >> hs.name >> hs.score;
+    }
+    file.close();
+    return hs;
+}
