@@ -1,1 +1,43 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <ctime>
+#include <cstdlib>
+#include <fstream>
+#include <algorithm>
 
+using namespace std;
+
+struct Player {
+    string name;
+    int score = 0;
+};
+
+struct HighScore {
+    string name;
+    int score = 0;
+};
+
+void displayWord(const string& word, const vector<bool>& guessed) {
+    for (size_t i = 0; i < word.length(); i++) {
+        if (guessed[i]) {
+            cout << word[i] << " ";
+        } else {
+            cout << "_ ";
+        }
+    }
+    cout << endl;
+}
+
+void displayHangman(int incorrectGuesses) {
+    string hangman[7] = {
+        "  +---+\n  |   |\n      |\n      |\n      |\n      |\n=========\n",
+        "  +---+\n  |   |\n  O   |\n      |\n      |\n      |\n=========\n",
+        "  +---+\n  |   |\n  O   |\n  |   |\n      |\n      |\n=========\n",
+        "  +---+\n  |   |\n  O   |\n /|   |\n      |\n      |\n=========\n",
+        "  +---+\n  |   |\n  O   |\n /|\\  |\n      |\n      |\n=========\n",
+        "  +---+\n  |   |\n  O   |\n /|\\  |\n /    |\n      |\n=========\n",
+        "  +---+\n  |   |\n  O   |\n /|\\  |\n / \\  |\n      |\n=========\n"
+    };
+    cout << hangman[incorrectGuesses] << endl;
+}
