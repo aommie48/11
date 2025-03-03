@@ -1,1 +1,46 @@
-
+int currentPlayer = 0;
+        int incorrectGuesses = 0;
+        while (incorrectGuesses < attempts) {
+            cout << "\n" << players[currentPlayer].name << "'s turn!" << endl;
+            cout << "Attempts left: " << (attempts - incorrectGuesses) << endl;
+            displayHangman(incorrectGuesses);
+            displayWord(word, guessed);
+            
+            cout << "Enter a letter: ";
+            char guess;
+            cin >> guess;
+            guess = tolower(guess);
+            
+            bool correctGuess = false;
+            for (size_t i = 0; i < word.length(); i++) {
+                if (word[i] == guess && !guessed[i]) {
+                    guessed[i] = true;
+                    correctGuess = true;
+                    players[currentPlayer].score += 10;
+                }
+            }
+            
+            if (!correctGuess) {
+                incorrectGuesses++;
+                cout << "Wrong guess!" << endl;
+            }
+            
+            if (isWordGuessed(guessed)) {
+                cout << "Congratulations! The word was: " << word << endl;
+                break;
+            }
+            
+            currentPlayer = (currentPlayer + 1) % numPlayers;
+        }
+        
+        if (incorrectGuesses >= attempts) {
+            cout << "Game over! The correct word was: " << word << endl;
+        }
+        
+        cout << "\nFinal Scores:\n";
+        for (const auto& player : players) {
+            cout << player.name << " - " << player.score << " points" << endl;
+        }
+    }
+    return 0;
+}
